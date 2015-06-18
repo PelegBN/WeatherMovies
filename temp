@@ -1,0 +1,150 @@
+// Scripts
+
+exports.getMovie = function(temperature) {
+
+	var temp = temperature;
+	var spot = Math.floor((movie.length)/2);
+
+	if (temp > movie[spot]["temperature"]){
+		while ((temp > movie[spot-1]["temperature"]) && (temp > movie [spot+1]["temperature"]) && (Math.floor((movie.length - spot)/2) > 0)) {
+			if (temp > movie[spot]["temperature"]) spot = spot + Math.floor((movie.length - spot)/2);
+			if (temp < movie[spot]["temperature"]) spot = spot - Math.floor((movie.length - spot)/2);
+			if ((spot+1) == (movie.length)) break;
+		} 
+	}
+
+	else {
+			if (temp < movie[spot]["temperature"]){
+			while ((temp < movie[spot+1]["temperature"]) && (temp < movie [spot-1]["temperature"]) && (Math.floor(spot/2) > 0)) {
+				if (temp < movie[spot]["temperature"]) spot = spot - Math.floor(spot/2);
+				if (temp > movie[spot]["temperature"]) spot = spot + Math.floor(spot/2);
+				if ((spot-1) < 0) break;
+			} 
+		}
+	}
+
+	if (((spot+1) == (movie.length)) || ((spot-1) < 0)) return movie[spot];
+
+	var closest = spot-1;
+	for (var i=0 ; i < 2 ; i++){
+		if (Math.abs(temp - movie[spot+i]["temperature"]) < Math.abs(temp - movie[closest]["temperature"])) closest = spot+i;
+	}
+	return movie[closest];
+};
+
+
+exports.getMovie = function(temperature) {
+
+	var temp = temperature;
+	var mid = Math.floor((movie.length)/2);
+
+	if (temp == movie[mid]["temperature"]) return movie[mid];
+	if (temp > movie[mid]["temperature"]) {
+		var pointUp = mid;
+		while (temp > movie[pointUp]["temperature"]){
+			pointUp++;
+			if (temp == movie[pointUp]["temperature"]) return movie[pointUp];
+		}
+
+		if ((movie[pointUp]["temperature"] - temp) < (temp - movie[pointUp-1]["temperature"])) return movie[pointUp];
+		else return movie[pointUp-1];
+	}
+	if (temp < movie[mid]["temperature"]) {
+		var pointDown = mid;
+		while (temp < movie[pointDown]["temperature"]){
+			pointDown--;
+			if (temp == movie[pointDown]["temperature"]) return movie[pointDown];
+		}
+
+		if ((temp - movie[pointDown]["temperature"]) < (movie[pointDown+1]["temperature"]) - temp) return movie[pointDown];
+		else return movie[pointDown+1];
+	}
+};
+
+
+
+
+
+
+
+
+// CSS
+
+@media screen and (min-width: 1001px){
+.temp {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	height: 100%;
+	width: 100%;	
+}
+
+.drop {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	font-size: 70px;
+	width: 197px;
+	height: 190px;
+	font-family: 'Nixie One', cursive;
+	background-color: black;
+	color: white;
+	border-radius: 1000px 0 1000px 1000px;
+	text-align: center;
+}
+}
+
+@media screen and (min-width: 321px) and (max-width: 1000px){
+.temp {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	height: 100%;
+	width: 100%;	
+}
+
+.drop {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	font-size: 7vw;
+	width: 20%;
+	height: 13%;
+	font-family: 'Nixie One', cursive;
+	background-color: black;
+	color: white;
+	border-radius: 1000px 0 1000px 1000px;
+	text-align: center;
+}
+}
+
+@media screen and (max-width: 320px){
+.temp {
+	position: absolute;
+	display: inline-block;
+	top: 0px;
+	right: 0px;
+	height: 133px;
+	width: 320px;
+	border: 1px solid black;
+}
+.drop {
+	position: absolute;
+	top: -30px;
+	right: -15px;
+	font-size: 50px;
+	display: inline-block;
+	width: 130px;
+	height: 130px;
+	font-family: 'Nixie One', cursive;
+	background-color: black;
+	color: white;
+	border-radius: 1000px 0 1000px 1000px;
+	text-align: center;
+}
+}
+
+
+.drop p { 
+	margin-top: 25%;
+}
