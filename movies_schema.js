@@ -12,7 +12,7 @@ rate: Number,
 plot: String,
 poster: String,
 temperature: Number,
-similar: [String],
+Similar: [{Picture: String}],
 favorite: Boolean,
 trailer: String
 }, {collection: 'movies'});
